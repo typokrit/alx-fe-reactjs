@@ -7,6 +7,8 @@ function Navbar() {
     display: "flex",
     gap: "20px",
     color: "white",
+    justifyContent: "space-around",
+    alignItems: "center",
   };
 
   const linkStyle = {
