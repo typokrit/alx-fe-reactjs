@@ -2,11 +2,13 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import RecipeList from "./components/RecipeList";
 import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeDetails from "./components/RecipeDetails";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
       <h1>📖 Recipe Sharing App</h1>
+
       <nav style={{ marginBottom: "20px" }}>
         <Link to="/" style={{ marginRight: "10px" }}>
           Home
@@ -18,6 +20,7 @@ function App() {
             path="/"
             element={
               <>
+                <SearchBar />
                 <RecipeList />
                 <AddRecipeForm />
               </>
