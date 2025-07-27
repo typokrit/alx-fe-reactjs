@@ -1,48 +1,28 @@
-import { create } from "zustand";
+import create from "zustand";
 
-export const useRecipeStore = create((set, get) => ({
+export const useRecipeStore = create((set) => ({
   recipes: [],
-  searchTerm: "",
-  filteredRecipes: [],
 
-  setSearchTerm: (term) => {
-    set({ searchTerm: term });
-    get().filterRecipes();
-  },
+  favorites: [],
+  addFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: state.favorites.includes(recipeId)
+        ? state.favorites
+        : [...state.favorites, recipeId],
+    })),
+  removeFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: state.favorites.filter((id) => id !== recipeId),
+    })),
 
-  setRecipes: (recipes) => {
-    set({ recipes });
-    get().filterRecipes(); // recalculate filtered
-  },
-
-  filterRecipes: () => {
-    const { recipes, searchTerm } = get();
-    const filtered = recipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    set({ filteredRecipes: filtered });
-  },
-
-  addRecipe: (newRecipe) => {
+  recommendations: [],
+  generateRecommendations: () =>
     set((state) => {
-      const updated = [...state.recipes, newRecipe];
-      return { recipes: updated, filteredRecipes: updated };
-    });
-  },
-
-  updateRecipe: (updatedRecipe) => {
-    set((state) => {
-      const updated = state.recipes.map((r) =>
-        r.id === updatedRecipe.id ? updatedRecipe : r
+      // Simple mock recommendation: recipes that are NOT favorited
+      // but here you can add smarter logic
+      const recommended = state.recipes.filter(
+        (recipe) => !state.favorites.includes(recipe.id)
       );
-      return { recipes: updated, filteredRecipes: updated };
-    });
-  },
-
-  deleteRecipe: (id) => {
-    set((state) => {
-      const updated = state.recipes.filter((r) => r.id !== id);
-      return { recipes: updated, filteredRecipes: updated };
-    });
-  },
+      return { recommendations: recommended };
+    }),
 }));
