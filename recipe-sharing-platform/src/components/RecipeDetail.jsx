@@ -71,7 +71,7 @@ const RecipeDetail = () => {
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-3">Cooking Steps</h2>
+        <h2 className="text-2xl font-semibold mb-3">Instructions</h2>
         <ol className="list-decimal list-inside space-y-2 text-gray-600">
           {steps.map((step, idx) => (
             <li key={idx}>{step}</li>
