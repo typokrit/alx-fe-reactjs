@@ -40,13 +40,6 @@ const RecipeDetail = () => {
     "3 cups ingredient C",
   ];
 
-  const steps = [
-    "Step 1: Prepare the ingredients.",
-    "Step 2: Mix everything together.",
-    "Step 3: Cook for 20 minutes on medium heat.",
-    "Step 4: Serve hot and enjoy!",
-  ];
-
   return (
     <div className="container mx-auto p-6 max-w-3xl">
       <Link to="/" className="text-blue-500 hover:underline mb-6 inline-block">
@@ -64,8 +57,8 @@ const RecipeDetail = () => {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-3">Ingredients</h2>
         <ul className="list-disc list-inside space-y-1 text-gray-600">
-          {ingredients.map((ing, idx) => (
-            <li key={idx}>{ing}</li>
+          {ingredients.map((step, idx) => (
+            <li key={idx}>{step}</li>
           ))}
         </ul>
       </section>
@@ -73,7 +66,7 @@ const RecipeDetail = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-3">Instructions</h2>
         <ol className="list-decimal list-inside space-y-2 text-gray-600">
-          {steps.map((step, idx) => (
+          {recipe.instructions.map((step, idx) => (
             <li key={idx}>{step}</li>
           ))}
         </ol>
