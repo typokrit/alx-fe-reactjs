@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import BlogPost from "./components/BlogPost";
 import ProtectedRoute from "./components/ProtectedRoute";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, login, logout } = useAuth();
 
   return (
     <Router>
@@ -15,7 +16,7 @@ function App() {
         <Link to="/profile">Profile</Link>
         <Link to="/blog/1">Blog Example</Link>
         <button
-          onClick={() => setIsAuthenticated(!isAuthenticated)}
+          onClick={isAuthenticated ? logout : login}
           className="bg-blue-500 text-white px-2 py-1 rounded"
         >
           {isAuthenticated ? "Logout" : "Login"}
@@ -25,17 +26,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        {/* Protected Route */}
         <Route
           path="/profile/*"
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
         />
 
-        {/* Dynamic Route */}
         <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
     </Router>
